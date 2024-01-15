@@ -1,11 +1,16 @@
-import { Navbar } from "@/components/Navbar";
-import Image from "next/image";
+import React from "react";
 
-export default function Home() {
+import { Navbar } from "@/components/Navbar";
+
+export default function SetupLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <div className="w-full max-w-5xl mx-auto pt-16">
       <Navbar />
-      Home Page
+      {children}
     </div>
   );
 }

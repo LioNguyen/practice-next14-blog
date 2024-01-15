@@ -1,6 +1,6 @@
 "use client";
 
-import { UserButton, useAuth } from "@clerk/nextjs";
+import { UserButton, useAuth, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 
@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 
 export function Navbar() {
   const { userId } = useAuth();
+
   const pathname = usePathname();
 
   const navList = [

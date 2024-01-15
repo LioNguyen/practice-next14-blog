@@ -4,11 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
   try {
-    const posts = await prisma.post.findMany({
-      where: {
-        userId: "1",
-      },
-    });
+    const posts = await prisma.post.findMany();
 
     return NextResponse.json(posts);
   } catch (error) {
@@ -19,8 +15,6 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   const { userId } = auth();
-
-  console.log("🚀 @log ~ POST ~ userId:", userId);
 
   const { title, description } = await req.json();
 

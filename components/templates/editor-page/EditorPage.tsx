@@ -1,7 +1,6 @@
 import { Editor, EditorProps } from "@/components/molecules/editor/Editor";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import React from "react";
 
 interface EditorPageProps extends EditorProps {
   title: string;

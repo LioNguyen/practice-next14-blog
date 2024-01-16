@@ -29,16 +29,17 @@ export default function WritePage() {
       setIsLoading(true);
       const { data, error } = await postData("/api/blog-post", blog);
 
+      router.refresh();
+
       if (error) {
         toast.error("Something went wrong");
         return;
       }
       if (data) {
         toast.success("Create post successfully");
-        router.refresh();
         setTimeout(() => {
           router.push("/");
-        }, 100);
+        }, 500);
       }
     } catch (error) {
       console.log("🚀 @log ~ handleSubmit ~ error:", error);

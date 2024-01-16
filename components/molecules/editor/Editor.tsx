@@ -1,7 +1,10 @@
 import dynamic from "next/dynamic";
-import React from "react";
-// import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+
+const ReactQuill = dynamic(() => import("react-quill"), {
+  ssr: false,
+  loading: () => <p>Loading ...</p>,
+});
 
 export interface EditorProps {
   className?: string;
@@ -10,7 +13,6 @@ export interface EditorProps {
 }
 
 export function Editor({ value, onChange }: EditorProps) {
-  const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
   const toolbarOptions = [
     ["bold", "italic", "underline", "strike"], // toggled buttons
     ["blockquote", "code-block"],

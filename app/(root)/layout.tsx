@@ -8,7 +8,7 @@ export default function SetupLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="w-full max-w-5xl mx-auto pt-16">
+    <div className="w-full max-w-5xl mx-auto md:pt-[70px] pt-4">
       <Navbar />
       {children}
     </div>

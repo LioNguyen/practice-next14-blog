@@ -1,23 +1,29 @@
-"use client";
+import { HomePage } from "@/components/templates/home/HomePage";
+import { fetchData } from "@/lib/utils";
 
-import axios from "axios";
-import { useEffect } from "react";
+interface HomeProps {
+  searchParams: any;
+}
 
-import { Navbar } from "@/components/Navbar";
-import { useAuth } from "@clerk/nextjs";
+export default async function Home({ searchParams }: HomeProps) {
+  const page = +searchParams.page || 1;
 
-export default function Home() {
-  const { userId } = useAuth();
+  const { data, error } = await fetchData(
+    `${process.env.BASE_URL}/api/blog-posts?page=${page}`
+  );
+  const postList = data.posts.map((item: any) => {
+    return {
+      id: item.id,
+      title: item.title,
+      description: item.description,
+      createdAt: item.createdAt,
+      showReadMore: true,
+    };
+  });
 
-  const fetchData = async () => {
-    const res = await axios.get("/api/posts");
-
-    console.log("🚀 @log ~ fetchData ~ res:", res.data);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  return <div>Home Page</div>;
+  return (
+    <div>
+      <HomePage totalPosts={data.count} page={page} postList={postList} />
+    </div>
+  );
 }

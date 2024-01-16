@@ -1,15 +1,20 @@
 "use client";
 
-import { UserButton, useAuth, useUser } from "@clerk/nextjs";
+import { UserButton, useAuth } from "@clerk/nextjs";
+import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import { useParams, usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
+import { useScroll } from "@/hooks/useScroll";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
   const { userId } = useAuth();
-
   const pathname = usePathname();
+
+  const router = useRouter();
+
+  const { y } = useScroll();
 
   const navList = [
     {
@@ -22,9 +27,23 @@ export function Navbar() {
     },
   ];
   return (
-    <div className="w-full fixed top-0 left-0 right-0">
+    <div
+      className={cn(
+        "w-full fixed top-0 left-0 right-0 bg-white",
+        y > 0 ? "shadow" : ""
+      )}
+    >
       <div className="w-full max-w-5xl flex items-center justify-between mx-auto p-4">
-        <div></div>
+        <div>
+          {pathname.includes("/post") ? (
+            <ChevronLeft
+              className="cursor-pointer w-5 h-5 md:w-8 md:h-8"
+              onClick={() => router.back()}
+            />
+          ) : (
+            <></>
+          )}
+        </div>
         <div className="flex items-center gap-4">
           {navList.map((item) => (
             <Link

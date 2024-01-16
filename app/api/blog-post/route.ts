@@ -2,19 +2,10 @@ import prisma from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
-export async function GET(req: Request) {
-  try {
-    const posts = await prisma.post.findMany();
-
-    return NextResponse.json(posts);
-  } catch (error) {
-    console.log("🚀 @log ~ GET ~ error:", error);
-    return new NextResponse("Internal error", { status: 500 });
-  }
-}
-
 export async function POST(req: Request) {
   const { userId } = auth();
+
+  console.log("🚀 @log ~ POST ~ userId:", userId);
 
   const { title, description } = await req.json();
 
